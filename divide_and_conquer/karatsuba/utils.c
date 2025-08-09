@@ -14,14 +14,15 @@ struct number *create_number(const char *digits, const size_t length)
 {
 	struct number *num = (struct number *)malloc(sizeof(struct number));
 	int i = length;
-	char *d = (char *)calloc(length, sizeof(char));
+	char *d = (char *)calloc(length + (length % 2 == 1 ? 1 : 0),
+				 sizeof(char));
 
 	while (isdigit(digits[i])) {
 		d[i] = digits[i] - '0';
 		i--;
 	}
 	num->digits = d;
-	num->length = length;
+	num->length = length + (length % 2 == 1 ? 1 : 0);
 	return num;
 }
 /**
@@ -42,7 +43,7 @@ void free_number(struct number *num)
 void print_number(const struct number *num)
 {
 	bool leading_zero = true;
-	for (size_t i = 0; i < num->length; i++) {
+	for (ssize_t i = 0; i < num->length; i++) {
 		if (leading_zero && num->digits[i] == 0) {
 			continue;
 		}
@@ -55,13 +56,14 @@ void print_number(const struct number *num)
  * padWithZeros - Pads a number structure with zeros at the end.
  * @num: The number structure to pad.
  * @n: The number of zeros to pad.
+ * @from_right: If true, pads zeros to the right; otherwise, pads to the left.
  * Returns: A new number structure with the padded digits.
  */
-struct number *padWithZeros(const struct number *num, size_t n)
+struct number *padWithZeros(const struct number *num, size_t n, bool from_right)
 {
 	struct number *x = malloc(sizeof(struct number));
 	char *d = (char *)calloc(num->length + n, sizeof(char));
-	strncpy(d, num->digits, num->length);
+	strncpy(d + (from_right ? 0 : n), num->digits, num->length);
 	x->digits = d;
 	x->length = x->length + n;
 	return x;

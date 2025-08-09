@@ -3,10 +3,11 @@
 
 #include <stdbool.h>
 #include <stddef.h>
+#include <stdio.h>
 
 struct number {
 	char *digits;
-	size_t length;
+	ssize_t length;
 };
 
 /**
@@ -15,7 +16,7 @@ struct number {
 * @b: Second value.
 * Returns: The maximum of a and b.
 */
-static inline size_t max(size_t a, size_t b)
+static inline ssize_t max(ssize_t a, ssize_t b)
 {
 	return (a > b) ? a : b;
 }
@@ -26,7 +27,7 @@ struct number *add(const struct number *x, const struct number *y);
 
 struct number *subtract(const struct number *x, const struct number *y);
 
-struct number *padWithZeros(const struct number *num, size_t n);
+struct number *padWithZeros(const struct number *num, size_t n, bool from_right);
 
 struct number *split(const struct number *num, size_t start, size_t end);
 
