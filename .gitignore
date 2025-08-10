@@ -2,3 +2,5 @@
 compile_commands.json
 divide_and_conquer/karatsuba/karatsuba
 .cache/
+*.txt
+.vscode/

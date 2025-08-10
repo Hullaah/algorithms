@@ -1,7 +1,6 @@
 #include <string.h>
 #include <karatsuba.h>
 #include <stdlib.h>
-#include <ctype.h>
 #include <stdio.h>
 
 /**
@@ -13,16 +12,18 @@
 struct number *create_number(const char *digits, const size_t length)
 {
 	struct number *num = (struct number *)malloc(sizeof(struct number));
-	int i = length;
 	char *d = (char *)calloc(length + (length % 2 == 1 ? 1 : 0),
 				 sizeof(char));
 
-	while (isdigit(digits[i])) {
+	num->length = length + (length % 2 == 1 ? 1 : 0);
+	int i = num->length - 1;
+	if (length % 2 == 1)
+		i--;
+	while (i >= 0) {
 		d[i] = digits[i] - '0';
 		i--;
 	}
 	num->digits = d;
-	num->length = length + (length % 2 == 1 ? 1 : 0);
 	return num;
 }
 /**
@@ -65,7 +66,23 @@ struct number *padWithZeros(const struct number *num, size_t n, bool from_right)
 	char *d = (char *)calloc(num->length + n, sizeof(char));
 	strncpy(d + (from_right ? 0 : n), num->digits, num->length);
 	x->digits = d;
-	x->length = x->length + n;
+	x->length = num->length + n;
+	return x;
+}
+
+struct number *removeLeadingZeros(const struct number *num)
+{
+	ssize_t i = 0;
+	while (i < num->length && num->digits[i] == 0) {
+		i++;
+	}
+	if (i == num->length) {
+		i--;
+	}
+	struct number *x = malloc(sizeof(struct number));
+	x->length = num->length - i;
+	x->digits = (char *)calloc(x->length, sizeof(char));
+	strncpy(x->digits, num->digits + i, x->length);
 	return x;
 }
 

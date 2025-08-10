@@ -27,7 +27,10 @@ struct number *add(const struct number *x, const struct number *y);
 
 struct number *subtract(const struct number *x, const struct number *y);
 
-struct number *padWithZeros(const struct number *num, size_t n, bool from_right);
+struct number *padWithZeros(const struct number *num, size_t n,
+			    bool from_right);
+
+struct number *removeLeadingZeros(const struct number *num);
 
 struct number *split(const struct number *num, size_t start, size_t end);
 
