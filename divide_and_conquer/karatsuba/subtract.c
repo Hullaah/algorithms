@@ -3,7 +3,17 @@
 #include <stdlib.h>
 
 /*
- * subtract
+ * subtract - Subtracts two number structures.
+ * @x: The first number structure (minuend).
+ * @y: The second number structure (subtrahend).
+ * Returns: A new number structure representing the result of the subtraction.
+ *
+ * If the result is negative, it will still be represented as a number structure,
+ * but the caller should handle the sign appropriately.
+ * The function assumes that the digits in x and y are non-negative and that
+ * the subtraction does not result in a negative number.
+ * If the result is negative, the caller should handle it accordingly.
+ * Note: The function does not check for negative results and will not raise an error
  */
 struct number *subtract(const struct number *x, const struct number *y)
 {
@@ -23,14 +33,14 @@ struct number *subtract(const struct number *x, const struct number *y)
 	    k = leading_zero_removed_y->length - 1;
 	     j >= 0; i--, j--, k--) {
 		char tmp;
-		if (leading_zero_removed_y->digits[k] < 0) {
+		if (k < 0) {
 			tmp = leading_zero_removed_x->digits[j];
-		} else if (leading_zero_removed_y->digits[i] > x->digits[i]) {
-			leading_zero_removed_x->digits[i - 1]--;
-			leading_zero_removed_x->digits[i] += 10;
+		} else if (leading_zero_removed_y->digits[k] > leading_zero_removed_x->digits[j]) {
+			leading_zero_removed_x->digits[j - 1]--;
+			leading_zero_removed_x->digits[j] += 10;
 		}
-		tmp = leading_zero_removed_x->digits[i] -
-		      leading_zero_removed_y->digits[i];
+		tmp = leading_zero_removed_x->digits[j] -
+		      leading_zero_removed_y->digits[k];
 		result->digits[i] = tmp;
 	}
 	return result;

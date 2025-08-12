@@ -1,7 +1,9 @@
-#include <string.h>
 #include <karatsuba.h>
+#include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
+#include <stdbool.h>
 
 /**
  * create_number - Creates a number structure from a string of digits.
@@ -9,21 +11,16 @@
  * @length: The length of the string.
  * Returns: A pointer to the newly created number structure.
  */
-struct number *create_number(const char *digits, const size_t length)
+struct number *create_number(const char *digits, const ssize_t length)
 {
 	struct number *num = (struct number *)malloc(sizeof(struct number));
-	char *d = (char *)calloc(length + (length % 2 == 1 ? 1 : 0),
-				 sizeof(char));
+	size_t digits_len = strlen(digits);
 
+	num->digits = (char *)calloc(length + (length % 2 == 1 ? 1 : 0),
+				     sizeof(char));
 	num->length = length + (length % 2 == 1 ? 1 : 0);
-	int i = num->length - 1;
-	if (length % 2 == 1)
-		i--;
-	while (i >= 0) {
-		d[i] = digits[i] - '0';
-		i--;
-	}
-	num->digits = d;
+	memcpy(num->digits + num->length - digits_len + 1, digits, digits_len - 1);
+	digitize(num->digits + num->length - digits_len + 1, digits_len - 1);
 	return num;
 }
 /**
@@ -64,12 +61,16 @@ struct number *padWithZeros(const struct number *num, size_t n, bool from_right)
 {
 	struct number *x = malloc(sizeof(struct number));
 	char *d = (char *)calloc(num->length + n, sizeof(char));
-	strncpy(d + (from_right ? 0 : n), num->digits, num->length);
+	memcpy(d + (from_right ? 0 : n), num->digits, num->length);
 	x->digits = d;
 	x->length = num->length + n;
 	return x;
 }
-
+/**
+ * removeLeadingZeros - Removes leading zeros from a number structure.
+ * @num: The number structure from which to remove leading zeros.
+ * Returns: A new number structure with leading zeros removed.
+ */
 struct number *removeLeadingZeros(const struct number *num)
 {
 	ssize_t i = 0;
@@ -82,7 +83,7 @@ struct number *removeLeadingZeros(const struct number *num)
 	struct number *x = malloc(sizeof(struct number));
 	x->length = num->length - i;
 	x->digits = (char *)calloc(x->length, sizeof(char));
-	strncpy(x->digits, num->digits + i, x->length);
+	memcpy(x->digits, num->digits + i, x->length);
 	return x;
 }
 
@@ -98,7 +99,7 @@ struct number *split(const struct number *num, size_t start, size_t end)
 {
 	struct number *x = malloc(sizeof(struct number));
 	char *d = calloc(end - start, sizeof(char));
-	strncpy(d, num->digits + start, end - start);
+	memcpy(d, num->digits + start, end - start);
 	x->digits = d;
 	x->length = end - start;
 	return x;

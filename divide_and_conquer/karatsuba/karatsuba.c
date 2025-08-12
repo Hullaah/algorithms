@@ -2,6 +2,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/**
+ * karatsuba - Implements the Karatsuba algorithm for multiplying two numbers.
+ * @x: The first number structure.
+ * @y: The second number structure.
+ * Returns: A new number structure containing the product of x and y.
+ *
+ * This function uses the Karatsuba algorithm to multiply two numbers represented
+ * as structures. It handles padding, splitting, and recursive multiplication.
+ */
 struct number *karatsuba(const struct number *x, const struct number *y)
 {
 	struct number *result;
