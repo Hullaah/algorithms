@@ -4,7 +4,9 @@ KARATSUBA_SRCS = $(wildcard divide_and_conquer/karatsuba/*.c)
 KARATSUBA_OBJS = $(KARATSUBA_SRCS:.c=.o)
 
 .PHONY: all clean karatsuba
-all: karatsuba
+all: divide_and_conquer
+
+divide_and_conquer: karatsuba
 
 karatsuba: divide_and_conquer/karatsuba/karatsuba
 
