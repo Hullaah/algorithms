@@ -35,6 +35,8 @@ struct number *subtract(const struct number *x, const struct number *y)
 		char tmp;
 		if (k < 0) {
 			tmp = leading_zero_removed_x->digits[j];
+			result->digits[i] = tmp;
+			continue;
 		} else if (leading_zero_removed_y->digits[k] > leading_zero_removed_x->digits[j]) {
 			leading_zero_removed_x->digits[j - 1]--;
 			leading_zero_removed_x->digits[j] += 10;
@@ -43,5 +45,7 @@ struct number *subtract(const struct number *x, const struct number *y)
 		      leading_zero_removed_y->digits[k];
 		result->digits[i] = tmp;
 	}
+	free_number(leading_zero_removed_x);
+	free_number(leading_zero_removed_y);
 	return result;
 }
