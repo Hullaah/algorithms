@@ -13,10 +13,3 @@ C gives a deeper understanding of how algorithms behave at the memory and perfor
 ## 📂 Structure
 - `divide_and_conquer` - Divide and Conquer algorithms
 - `include` - Reusable headers
-
-
-## 🚀 Implemented Algorithms
-
-### Divide and Conquer
-- **[Karatsuba Multiplication](divide_and_conquer/karatsuba/)** - Fast multiplication algorithm
-

@@ -4,3 +4,4 @@ divide_and_conquer/karatsuba/karatsuba
 .cache/
 *.txt
 .vscode/
+divide_and_conquer/mergesort/mergesort

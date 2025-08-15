@@ -1,4 +1,4 @@
-# ⚡ Karatsuba Multiplication Algorithm (C Implementation)
+# ⚡ Karatsuba Multiplication Algorithm
 
 Karatsuba's algorithm is a **divide-and-conquer** method for multiplying two large integers faster than the standard `O(n²)` gradeschool algorithm.  
 It achieves a time complexity of approximately **O(n^1.585)**, making it significantly faster for large inputs.
@@ -29,13 +29,13 @@ This reduces the number of multiplications from **4** to **3**, giving a faster 
 ## 🛠 Build & Run
 
 ### Build
+Ensure you are in the project root when building
 ```bash
-cd ../..
 make karatsuba
 ```
 ### Run
+Enter the `divide_and_conquer/karatsuba` directory and run from there:
 ```bash
-cd divide_and_conquer/karatsuba
 ./karatsuba < input.txt
 ```
 
