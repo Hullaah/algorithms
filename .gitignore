@@ -5,3 +5,4 @@ divide_and_conquer/karatsuba/karatsuba
 *.txt
 .vscode/
 divide_and_conquer/mergesort/mergesort
+divide_and_conquer/count_inversions/count_inversions
